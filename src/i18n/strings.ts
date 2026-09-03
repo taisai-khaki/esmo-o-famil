@@ -1,0 +1,86 @@
+import type { Lang } from '../types';
+
+type Entry = { en: string; fa: string };
+
+const S: Record<string, Entry> = {
+  title: { en: 'Esm-o-Famil', fa: 'اسم و فامیل' },
+  tagline: { en: 'The legendary Iranian family word game', fa: 'بازی کلمه‌ی خانوادگی اصیل ایرانی' },
+  subtitle: {
+    en: 'Four chairs. One alphabet. The whole family argues about one word.',
+    fa: 'چهار صندلی. یک الفبا. کل خانواده بر سر یک کلمه دعوا می‌کند.',
+  },
+  yourName: { en: 'Your name', fa: 'نام شما' },
+  play: { en: 'Start Game', fa: 'شروع بازی' },
+  howTo: { en: 'How to play', fa: 'نحوه‌ی بازی' },
+  howTo1: {
+    en: 'The reciter reads the alphabet in their head… you shout STOP to pick the letter.',
+    fa: 'خواننده الفبا را سر می‌خواند… شما STOP را می‌زنید تا حرف دور انتخاب شود.',
+  },
+  howTo2: {
+    en: 'Race your family: fill 3 words in each of the 9 categories with that letter.',
+    fa: 'با خانواده رقابت کنید: در هر ۹ دسته، ۳ کلمه با همان حرف بنویسید.',
+  },
+  howTo3: {
+    en: 'Unknown word? The family debates and YOU are the judge!',
+    fa: 'کلمه‌ی ناشناخته؟ خانواده بحث می‌کنند و شما داور هستید!',
+  },
+  records: { en: 'Family records', fa: 'رکورد خانواده' },
+  noRecords: { en: 'No records yet. Be the first!', fa: 'هنوز رکوردی نیست. اولین باش!' },
+  language: { en: 'Language', fa: 'زبان' },
+  sound: { en: 'Sound', fa: 'صدا' },
+  reciting: { en: 'is reading the alphabet in their head…', fa: 'فکر می‌کند الفبا را سر بخواند…' },
+  pressStop: { en: 'When ready, press STOP to freeze the letter!', fa: 'هر وقت آماده بودی STOP را بزن تا حرف قفل شود!' },
+  stop: { en: 'STOP!', fa: 'ایست!' },
+  reciterName: { en: 'Reciter', fa: 'خواننده' },
+  round: { en: 'Round', fa: 'دور' },
+  of: { en: 'of', fa: 'از' },
+  time: { en: 'Time', fa: 'زمان' },
+  score: { en: 'Score', fa: 'امتیاز' },
+  letterIs: { en: 'The letter is', fa: 'حرف این دور' },
+  writeHint: { en: 'Tap a cell and write — Fingilish works!', fa: 'روی خانه بزن و بنویس — فینگلیش هم جواب می‌دهد!' },
+  fingilish: { en: 'Fingilish', fa: 'فینگلیش' },
+  fingilishOn: { en: 'ON', fa: 'روشن' },
+  valid: { en: 'Valid!', fa: 'درست است!' },
+  invalid: { en: 'Wrong!', fa: 'غلط است!' },
+  repeated: { en: 'Already used!', fa: 'قبلاً نوشته شده!' },
+  wrongLetter: { en: 'Must start with the letter!', fa: 'باید با آن حرف شروع شود!' },
+  tooShort: { en: 'Too short', fa: 'خیلی کوتاه' },
+  debateTitle: { en: 'Family debate!', fa: 'دعوا خانوادگی!' },
+  debatePrompt: { en: 'Does', fa: 'آیا' },
+  debateCountAs: { en: 'count as a', fa: 'به عنوان' },
+  judge: { en: 'You are the judge — cast the final vote!', fa: 'شما داور هستید — رأی نهایی را بدهید!' },
+  accept: { en: 'Accept', fa: 'قبول است' },
+  reject: { en: 'Reject', fa: 'رد می‌کنم' },
+  votes: { en: 'votes', fa: 'رأی' },
+  roundOver: { en: 'Time! Round over!', fa: 'تمام! پایان دور!' },
+  results: { en: 'Round results', fa: 'نتیجه‌ی دور' },
+  total: { en: 'Total', fa: 'مجموع' },
+  roundWinner: { en: 'wins the round!', fa: 'برنده‌ی دور شد!' },
+  you: { en: 'you', fa: 'شما' },
+  nextRound: { en: 'Next round', fa: 'دور بعدی' },
+  finalRound: { en: 'Final round!', fa: 'دور نهایی!' },
+  finalResults: { en: 'Final results', fa: 'نتیجه‌ی نهایی' },
+  podium: { en: 'The family podium', fa: 'سکوی خانواده' },
+  playAgain: { en: 'Play again', fa: 'دوباره بازی' },
+  home: { en: 'Home', fa: 'خانه' },
+  newRecord: { en: 'New family record!', fa: 'رکورد جدید خانواده!' },
+  topRecords: { en: 'Top records', fa: 'بهترین رکوردها' },
+  thinking: { en: 'thinking…', fa: 'فکر می‌کند…' },
+  writing: { en: 'writing…', fa: 'می‌نویسد…' },
+  done: { en: 'done', fa: 'تمام کرد' },
+  emptyCell: { en: '—', fa: '—' },
+  attempts: { en: '3 attempts per row', fa: '۳ تلاش در هر ردیف' },
+  vs: { en: 'vs', fa: 'با' },
+  theFamily: { en: 'The whole family is gathered', fa: 'کل خانواده گرد هم آمد' },
+  yourTurnToJudge: { en: 'The family is shouting — decide!', fa: 'خانواده داد می‌زنند — تصمیم بگیر!' },
+  skipDebate: { en: 'Enough! Decide now', fa: 'بس است! حالا قضاوت کن' },
+  ready: { en: 'Ready?', fa: 'آماده‌ای؟' },
+  go: { en: 'Go!', fa: 'بریم!' },
+  wordsFound: { en: 'words found', fa: 'کلمه پیدا شد' },
+};
+
+export function makeT(lang: Lang) {
+  return (key: keyof typeof S): string => S[key][lang];
+}
+
+export type TFunc = ReturnType<typeof makeT>;
