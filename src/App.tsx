@@ -35,6 +35,25 @@ const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 
 const randomReciter = (): string => pick(PLAYERS).id;
 
+// Storage can be unavailable in private browsing, embedded previews, or when
+// the browser blocks third-party storage. Never let that prevent the game from
+// mounting — settings are a convenience, not a requirement.
+function readStorage(key: string, fallback = ''): string {
+  try {
+    return window.localStorage.getItem(key) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStorage(key: string, value: string): void {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Continue with an in-memory session when storage is unavailable.
+  }
+}
+
 interface AiTimer {
   timeout?: number;
   interval?: number;
@@ -51,14 +70,15 @@ interface CommitTarget {
 export default function App() {
   // ---------- persistent settings ----------
   const [lang, setLang] = useState<Lang>(() => {
-    const v = localStorage.getItem('ef-lang');
+    const v = readStorage('ef-lang');
     return v === 'fa' || v === 'en' ? v : 'en';
   });
-  const [muted, setMuted] = useState(() => localStorage.getItem('ef-muted') === '1');
-  const [playerName, setPlayerName] = useState(() => localStorage.getItem('ef-name') ?? '');
+  const [muted, setMuted] = useState(() => readStorage('ef-muted') === '1');
+  const [playerName, setPlayerName] = useState(() => readStorage('ef-name'));
   const [highScores, setHighScores] = useState<HighScore[]>(() => {
     try {
-      return JSON.parse(localStorage.getItem('ef-scores') ?? '[]') as HighScore[];
+      const saved = JSON.parse(readStorage('ef-scores', '[]')) as unknown;
+      return Array.isArray(saved) ? (saved as HighScore[]) : [];
     } catch {
       return [];
     }
@@ -101,16 +121,16 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
     document.documentElement.classList.toggle('lang-fa', lang === 'fa');
-    localStorage.setItem('ef-lang', lang);
+    writeStorage('ef-lang', lang);
   }, [lang]);
 
   useEffect(() => {
-    localStorage.setItem('ef-muted', muted ? '1' : '0');
+    writeStorage('ef-muted', muted ? '1' : '0');
     synth.setMuted(muted);
   }, [muted]);
 
   useEffect(() => {
-    localStorage.setItem('ef-name', playerName);
+    writeStorage('ef-name', playerName);
   }, [playerName]);
 
   // ---------- flow ----------
@@ -381,7 +401,7 @@ export default function App() {
     const list = [...highScores, entry].sort((a, b) => b.score - a.score).slice(0, 10);
     setIsRecord(total > 0 && list[0] === entry);
     setHighScores(list);
-    localStorage.setItem('ef-scores', JSON.stringify(list));
+    writeStorage('ef-scores', JSON.stringify(list));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
