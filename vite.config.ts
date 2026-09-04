@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  // relative asset paths so the build works on GitHub Pages
+  // (served from /esmo-o-famil/) as well as any other sub-path.
+  base: './',
   plugins: [react(), tailwindcss()],
   server: {
     host: true,
